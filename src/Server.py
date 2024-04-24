@@ -34,6 +34,7 @@ class Server:
         self.UDP_BROADCAST_ADDRESS = "<broadcast>"
         self.player_online_count = 0
         self.client_list = {}
+        self.all_bots = True
         self.flag = False
         self.socket_server = None  # Initialize socket_server as None
         # get local ip address
@@ -99,7 +100,6 @@ class Server:
         socket_server.bind((self.host, self.SERVER_PORT))
         while self.conn_made != 0:
             try:
-
                 # Send the offer packet
                 socket_server.sendto(packet, (self.UDP_BROADCAST_ADDRESS, self.SERVER_PORT))
                 print("Invitation packet broadcast")
@@ -160,7 +160,10 @@ class Server:
         self.client_list[addr] = {'connection': conn, 'team_name': team_name, 'inGame': False}
         print(f"Client connected: {team_name}")
 
-        if len(self.client_list) > 1 and not team_name.startswith("Bot"):
+        if not team_name.startswith("Bot"):
+            self.all_bots = False
+
+        if len(self.client_list) > 1 and not self.all_bots:
             # Start a timer
             self.conn_made = 10
 

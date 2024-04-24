@@ -1,14 +1,14 @@
-
 from Server import *
 from BotClient import BotClient
 from HumanClient import HumanClient
 
 
 def start_server1():
-    x =Server()
+    Server()
+
 
 def start_server2():
-    y = Server()
+    Server()
 
 def start_humanClients():
     humanClient1 = HumanClient()
@@ -37,12 +37,9 @@ if __name__ == "__main__":
     # server_thread1 = threading.Thread(target=start_server2)
     # server_thread1.start()
 
-    # botClient_thread1 = threading.Thread(target=start_botClients)
-    # botClient_thread1.start()
-    #
     botClient_thread = threading.Thread(target=start_botClients)
     botClient_thread.start()
-    #
+
     # botClient_thread2 = threading.Thread(target=start_botClients)
     # botClient_thread2.start()
     # botClient_thread3 = threading.Thread(target=start_botClients)
@@ -52,18 +49,12 @@ if __name__ == "__main__":
 
     # humanClient_thread = threading.Thread(target=start_humanClients)
     # humanClient_thread.start()
-    start_humanClients()
 
-    # botClient_thread2 = threading.Thread(target=start_botClients)
-    # botClient_thread2.start()
+    start_humanClients()
 
     try:
         server_thread.join()
-        # humanClient_thread.join()
-        # botClient_thread1.join()
         botClient_thread.join()
+        # humanClient_thread.join()
     except KeyboardInterrupt:
         print("The program stopped")
-
-
-
